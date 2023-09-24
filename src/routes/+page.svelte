@@ -7,5 +7,5 @@
 <p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
 
 {#if data !== null}
-  <p>Rec areas is {data.random}</p>
+  <p>Rec areas is {data.name}</p>
 {/if}

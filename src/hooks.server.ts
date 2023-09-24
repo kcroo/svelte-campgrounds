@@ -1,4 +1,4 @@
-import { Client, Pool } from 'pg';
+import { Pool } from 'pg';
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -12,7 +12,8 @@ const pool = new Pool({
 await pool.connect();
 console.log('pg connected...');
 
-export const handle = async ({event, resolve}) => {
+export async function handle ({event, resolve}) {
+  console.log('running handle...')
   event.locals = {
     pool: pool
   };
