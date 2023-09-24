@@ -6,6 +6,7 @@
 <h1>Welcome to SvelteKit</h1>
 <p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
 
-{#if data !== null}
-  <p>Rec areas is {data.name}</p>
-{/if}
+{#each data.data as row }
+  <p>Rec area is {row.name}</p>
+	<p>{@html row.description}</p>
+{/each}
