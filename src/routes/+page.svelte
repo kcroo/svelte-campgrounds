@@ -5,20 +5,23 @@
 	export let form: ActionData;
 </script>
 
-<form method="POST" action="?/getClosestFacilities" use:enhance>
-	<label>
+<h2>Get facilities closest to a location</h2>
+<form method="POST" action="?/getClosestFacilities" use:enhance style="display: table">
+	<fieldset>
+	<label class="form-element">
 		Latitude
-		<input name="latitude"id="latitude" type="text" value="44.30194">
+		<input name="latitude"id="latitude" type="text" value="44.30194" class="form-element">
 	</label>
-	<label>
+	<label class="form-element">
 		Longitude
-		<input name="longitude" id="longitude" type="text" value="-120.85251">
+		<input name="longitude" id="longitude" type="text" value="-120.85251" class="form-element">
 	</label>
-	<label>
+	<label class="form-element">
 		Number of sites
-		<input name="limit" id="limit" type="number" min="1" max="10" value="5">
+		<input name="limit" id="limit" type="number" min="1" max="10" value="5" class="form-element">
 	</label>
-	<button>Get closest sites</button>
+	<button class="form-element">Get closest sites</button>
+</fieldset>
 </form>
 
 {#if form?.facilities?.data }
@@ -28,3 +31,30 @@
 		{/each}
 	</ol>
 {/if}
+
+<style>
+	.form-element {
+		display: block;
+		padding: 0.2rem;
+		margin: 0.3rem;
+		font-size: 1.3rem;
+		line-height: 1.2;
+	}
+	button {
+		background: blue;
+		color: white;
+		border-radius: 3px;
+  	box-shadow: 0px 0px 12px -2px;
+	}
+
+	button:hover {
+		filter: brightness(90%);
+	}
+	button:focus {
+    outline: 1px solid white;
+	}
+	input {
+		display: block;
+		border: 1px solid;
+	}
+</style>
