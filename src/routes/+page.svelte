@@ -1,9 +1,11 @@
-<script>
-	/** @type {import('./$types').ActionData} */
-	export let form;
+<script lang="ts">
+	import { enhance } from '$app/forms';
+	import type { ActionData } from './$types';
+	
+	export let form: ActionData;
 </script>
 
-<form method="POST" action="?/getClosestFacilities">
+<form method="POST" action="?/getClosestFacilities" use:enhance>
 	<label>
 		Latitude
 		<input name="latitude"id="latitude" type="text" value="44.30194">

@@ -1,9 +1,9 @@
-/** @type {import('./$types').PageServerLoad} */
-export async function load(event) {
+import type { Actions, PageServerLoad } from './$types';
+
+export const load: PageServerLoad = async (event) => {
 	// do stuff whenever the page loads
 }
 
-/** @type {import('./$types').Actions} */
 export const actions = {
 	getClosestFacilities: async ({ fetch, request }) => {
 		const data = await request.formData();
@@ -21,4 +21,4 @@ export const actions = {
 		const facilities = await response.json();
 		return { facilities };
 	}
-};
+} satisfies Actions;
