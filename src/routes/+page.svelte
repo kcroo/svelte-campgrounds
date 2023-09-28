@@ -1,15 +1,28 @@
 <script>
-	/** @type {import('./$types').PageData} */
-	export let data;
+	/** @type {import('./$types').ActionData} */
+	export let form;
 </script>
 
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<form method="POST" action="?/getClosestFacilities">
+	<label>
+		Latitude
+		<input name="latitude"id="latitude" type="text" value="44.30194">
+	</label>
+	<label>
+		Longitude
+		<input name="longitude" id="longitude" type="text" value="-120.85251">
+	</label>
+	<label>
+		Number of sites
+		<input name="limit" id="limit" type="number" min="1" max="10" value="5">
+	</label>
+	<button>Get closest sites</button>
+</form>
 
-{#if data.data}
+{#if form?.facilities?.data }
 	<ol>
-		{#each data.data as row }
-		<li>{ row.name } ({ row.type }): { row.distance_miles } miles away</li>
+		{#each form.facilities.data as row }
+			<li>{ row.name } ({ row.type }): { row.distance_miles } miles away</li>
 		{/each}
 	</ol>
 {/if}
