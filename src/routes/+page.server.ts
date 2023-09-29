@@ -12,8 +12,9 @@ export const actions = {
 			const latitude = data.get('latitude');
 			const longitude = data.get('longitude');
 			const limit = data.get('limit');
+			const facilityType = data.getAll('facilityType');
 
-			const response = await fetch(`/api/facilities?lat=${latitude}&long=${longitude}&limit=${limit}`, {
+			const response = await fetch(`/api/facilities?lat=${latitude}&long=${longitude}&limit=${limit}&facilityType=${facilityType.join(',')}`, {
 				method: 'GET',
 				headers: {
 					'content-type': 'application/json'

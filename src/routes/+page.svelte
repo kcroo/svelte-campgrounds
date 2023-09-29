@@ -16,6 +16,21 @@
 		Longitude
 		<input name="longitude" id="longitude" type="text" value="-120.85251" class="form-element">
 	</label>
+	<fieldset>
+		<legend>Facility Type</legend>
+		<label class="form-element">
+			Campground
+			<input name="facilityType" id="facilityTypeCampground" type="checkbox" value="Campground" checked>
+		</label>
+		<label class="form-element">
+			Museum
+			<input name="facilityType" id="facilityTypeMuseum" type="checkbox" value="Museum">
+		</label>
+		<label class="form-element">
+			Visitor Center
+			<input name="facilityType" id="facilityTypeVisitorCenter" type="checkbox" value="Visitor Center">
+		</label>
+	</fieldset>
 	<label class="form-element">
 		Number of sites
 		<input name="limit" id="limit" type="number" min="1" max="10" value="5" class="form-element">
