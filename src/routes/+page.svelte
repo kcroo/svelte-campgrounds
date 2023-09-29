@@ -24,7 +24,9 @@
 </fieldset>
 </form>
 
-{#if form?.facilities?.data }
+{#if form?.errorMessage }
+	<p>{ form.errorMessage }</p>
+{:else if form?.facilities?.data }
 	<ol>
 		{#each form.facilities.data as row }
 			<li>{ row.name } ({ row.type }): { row.distance_miles } miles away</li>

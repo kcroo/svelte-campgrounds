@@ -2,7 +2,11 @@
 // for information about these interfaces
 declare global {
 	namespace App {
-		// interface Error {}
+		type ErrorSeverity = 'Low' | 'Medium' | 'High';
+		interface Error {
+			severity: ErrorSeverity,
+			message: String
+		}
 		interface Locals {
 			pool: PoolConfig
 		}
