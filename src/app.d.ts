@@ -3,6 +3,8 @@
 declare global {
 	namespace App {
 		type ErrorSeverity = 'Low' | 'Medium' | 'High';
+		type FacilityType = (typeof validFacilityTypes)[number];
+
 		interface Error {
 			severity: ErrorSeverity,
 			message: String

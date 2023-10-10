@@ -1,8 +1,25 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import type { ActionData } from './$types';
+
+	interface FacilityData {
+		name: string,
+		type: string,
+		distance_miles: number
+	}
+
+	interface ClosestFacilitiesData {
+		data: FacilityData[]
+	}
+
+	interface ClosestFacilitiesForm extends HTMLCollection {
+		latitude: HTMLInputElement,
+		longitude: HTMLInputElement,
+		facilityType: HTMLInputElement,
+		error: any,
+		facilities: ClosestFacilitiesData
+	}
 	
-	export let form: ActionData;
+	export let form: ClosestFacilitiesForm;
 </script>
 
 <h2>Get facilities closest to a location</h2>
@@ -10,11 +27,11 @@
 	<fieldset>
 	<label class="form-element">
 		Latitude
-		<input name="latitude"id="latitude" type="text" value="44.30194" class="form-element">
+		<input name="latitude"id="latitude" type="text" value={form?.latitude ?? "44.30194"} class="form-element">
 	</label>
 	<label class="form-element">
 		Longitude
-		<input name="longitude" id="longitude" type="text" value="-120.85251" class="form-element">
+		<input name="longitude" id="longitude" type="text" value={form?.longitude ?? "-120.85251"} class="form-element">
 	</label>
 	<fieldset>
 		<legend>Facility Type</legend>
@@ -39,8 +56,8 @@
 </fieldset>
 </form>
 
-{#if form?.errorMessage }
-	<p>{ form.errorMessage }</p>
+{#if form?.error }
+	<p>{ form.error }</p>
 {:else if form?.facilities?.data }
 	<ol>
 		{#each form.facilities.data as row }
