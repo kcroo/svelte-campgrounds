@@ -23,15 +23,18 @@
 </script>
 
 <h2>Get facilities closest to a location</h2>
-<form method="POST" action="?/getClosestFacilities" use:enhance style="display: table">
+<form method="POST" on:submit|preventDefault action="?/getClosestFacilities" style="display: table" use:enhance={() => {
+	return async ({ update }) => {
+		update({ reset: false });
+	}}}>
 	<fieldset>
 	<label class="form-element">
 		Latitude
-		<input name="latitude"id="latitude" type="text" value={form?.latitude ?? "44.30194"} class="form-element">
+		<input name="latitude"id="latitude" type="text" required value={form?.latitude ?? "44.30194"} class="form-element">
 	</label>
 	<label class="form-element">
 		Longitude
-		<input name="longitude" id="longitude" type="text" value={form?.longitude ?? "-120.85251"} class="form-element">
+		<input name="longitude" id="longitude" type="text" required value={form?.longitude ?? "-120.85251"} class="form-element">
 	</label>
 	<fieldset>
 		<legend>Facility Type</legend>
@@ -50,7 +53,7 @@
 	</fieldset>
 	<label class="form-element">
 		Number of sites
-		<input name="limit" id="limit" type="number" min="1" max="10" value="5" class="form-element">
+		<input name="limit" id="limit" type="number" required min="1" max="10" value="5" class="form-element">
 	</label>
 	<button class="form-element">Get closest sites</button>
 </fieldset>
