@@ -15,7 +15,7 @@
 		latitude: HTMLInputElement,
 		longitude: HTMLInputElement,
 		facilityType: HTMLInputElement,
-		error: any,
+		errorMessage: string,
 		facilities: ClosestFacilitiesData
 	}
 	
@@ -56,8 +56,8 @@
 </fieldset>
 </form>
 
-{#if form?.error }
-	<p>{ form.error }</p>
+{#if form?.errorMessage }
+	<p>{ form.errorMessage }</p>
 {:else if form?.facilities?.data }
 	<ol>
 		{#each form.facilities.data as row }

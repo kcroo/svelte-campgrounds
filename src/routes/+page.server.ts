@@ -1,5 +1,5 @@
 import type { Actions, PageServerLoad } from './$types';
-import { error, fail } from '@sveltejs/kit';
+import { fail } from '@sveltejs/kit';
 
 const validFacilityTypes = ['Campground', 'Museum', 'Visitor Center'];
 const isFacilityType = (x: string): x is App.FacilityType => validFacilityTypes.includes(x);
@@ -18,12 +18,12 @@ export const actions = {
 			const limit = Number(data.get('limit'));
 			const facilityTypes = data.getAll('facilityType');
 
-			if (!latitude) return fail(422, {description: latitude, error: 'Must provide latitude'});
-			else if (!longitude) return fail(422, {description: longitude, error: 'Must provide longitude'});
-			else if (facilityTypes.length < 1) return fail(422, {description: facilityTypes, error: 'Must provide at least one facility type'});
-			else if (isNaN(Number(latitude))) return fail(422, {description: latitude, error: `Latitude ${latitude} is not valid`});
-			else if (isNaN(Number(longitude))) return fail(422, {description: longitude, error: `Longitude ${longitude} is not valid`});
-			else if (facilityTypes.some(fc => !isFacilityType(String(fc)))) return fail(422, {description: facilityTypes, error: `Invalid facility types`});
+			if (!latitude) return fail(422, {errorMessage: 'Must provide latitude'});
+			else if (!longitude) return fail(422, {ErrorMessage: 'Must provide longitude'});
+			else if (facilityTypes.length < 1) return fail(422, {errorMessage: 'Must provide at least one facility type'});
+			else if (isNaN(Number(latitude))) return fail(422, {errorMessage: `Latitude ${latitude} is not valid`});
+			else if (isNaN(Number(longitude))) return fail(422, {errorMessage: `Longitude ${longitude} is not valid`});
+			else if (facilityTypes.some(fc => !isFacilityType(String(fc)))) return fail(422, {errorMessage: `Invalid facility types`});
 
 			let response = await fetch(`/api/facilities?lat=${latitude}&long=${longitude}&limit=${limit}&facilityType=${facilityTypes.join(',')}`, {
 				method: 'GET',
@@ -39,10 +39,8 @@ export const actions = {
 			
 			return { facilities };
 		} catch(error: any) {
-			return fail(422, {
-				description: 'Unknown error',
-				error: error.message
-			});
+			console.log(error)
+			return fail(422, {errorMessage: 'Unknown error getting closest facilities'});
 		}
 		
 	}

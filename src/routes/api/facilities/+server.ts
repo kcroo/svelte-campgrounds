@@ -8,32 +8,29 @@ const isFacilityType = (x: string): x is FacilityType => validFacilityTypes.incl
 export async function GET({ url, locals }) {
   // TODO: validate input
 
-  let lat: number | null = Number(url.searchParams.get('lat'));
-  let long: number | null = Number(url.searchParams.get('long'));
-  let limit: number = Number(url.searchParams.get('limit')) ?? 10;
+  let lat: string | null = url.searchParams.get('lat');
+  let long: string | null = url.searchParams.get('long');
+  let limit: string = url.searchParams.get('limit') ?? '10';
 
   let facilityTypes: string[] | undefined = url.searchParams.get('facilityType') ? url.searchParams.get('facilityType')?.split(',') : [];
   if (facilityTypes == null || facilityTypes.length < 1) {
-    throw error(400, {
-      severity: 'High',
-      message: 'Must provide at least one facility type'
-    })
+    throw error(400, 'Must provide at least one facility type');
   } else {
     for (let type of facilityTypes) {
       if (!isFacilityType(type)) {
-        throw error(400, {
-          severity: 'High',
-          message: 'Invalid facility type'
-        })
+        throw error(400, 'Invalid facility types')
       }
     }
   }
 
-  if (lat === null || long === null) {
-    throw error(400, {
-      severity: 'High',
-      message: 'Must provide lat and long. Limit is optional.'
-    });
+  if (lat == null || lat === '' || isNaN(Number(lat))) {
+    throw error(400, 'Must provide a number for latitude');
+  }
+  if (long == null || long === '' || isNaN(Number(long))) {
+    throw error(400, 'Must provide a number for longitude');
+  }
+  if (limit == null || limit === '' || isNaN(Number(limit))) {
+    throw error(400, 'Must provide a number for limit');
   }
 
   console.log(lat, long, limit, facilityTypes)
@@ -59,15 +56,13 @@ export async function GET({ url, locals }) {
           ST_SetSRID(ST_MakePoint($2, $1), 4326)
         )
       LIMIT $3;
-    `, [lat, long, limit, facilityTypes]);
+    `, [Number(lat), Number(long), Number(limit), facilityTypes]);
 
     return json({
       data: result.rows
     });
-  } catch(Exception) {
+  } catch(Exception: any) {
     console.log(Exception)
-    throw error(500, {
-      severity: 'High',
-      message: 'Facility querying error'});
+    throw error(500, 'Query error');
   }
 }
