@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
+	import InteractiveMap from '../components/InteractiveMap.svelte'
 
 	interface FacilityData {
 		name: string,
@@ -23,6 +24,7 @@
 </script>
 
 <h2>Get facilities closest to a location</h2>
+<InteractiveMap />
 <form method="POST" on:submit|preventDefault action="?/getClosestFacilities" style="display: table" use:enhance={() => {
 	return async ({ update }) => {
 		update({ reset: false });
