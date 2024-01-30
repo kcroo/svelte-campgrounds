@@ -1,0 +1,14 @@
+services:
+  database:
+    image: postgis
+    restart: always
+    volumes:
+      - pg-campgrounds:/var/lib/postgresql/data postgis/postgis
+    environment:
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DATABASE: postgres
+
+volumes:
+  pg-campgrounds:
+    external: true
+    name: pg-campgrounds
